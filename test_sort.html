@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sort</title>
+    <script src="qsort.js"></script>
+    <script>
+        var arr = [];
+        for(var i = 0; i < 10; i++){
+            arr[i] = Math.floor(Math.random() * 1000);
+            var elem = elem || arr[i];
+        }
+        console.log(arr);
+        quickSort(arr, 0, arr.length - 1);
+        console.log(arr);
+        console.log('index of ' + elem + ' is ' + binSearch(arr, 0, arr.length - 1, elem));
+    </script>
+</head>
+<body>
+
+</body>
+</html>
