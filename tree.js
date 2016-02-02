@@ -13,16 +13,16 @@ Tree.prototype.getRoot = function () {
 
 Tree.prototype.getOrdered = function () {
 
-    function inorderWalk(node) {
+    function inorderWalk(node, result) {
         if (node !== null) {
-            inorderWalk(node.getLeftChild());
+            inorderWalk(node.getLeftChild(), result);
             result.push(node.getKey());
-            inorderWalk(node.getRightChild());
+            inorderWalk(node.getRightChild(), result);
         }
     }
 
     var result = [];
-    inorderWalk(this.root);
+    inorderWalk(this.root, result);
 
     return result;
 };
