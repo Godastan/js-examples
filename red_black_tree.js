@@ -192,7 +192,7 @@ RBTree.prototype.transplant = function (dest, source) {
     }
 };
 
-Tree.prototype.delete = function (node) {
+RBTree.prototype.delete = function (node) {
     if (node.getLeftChild() === this.nul) {
         this.transplant(node, node.getRightChild());
     } else if (node.getRightChild() === this.nul) {
