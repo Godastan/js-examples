@@ -1,14 +1,13 @@
-function draw(tree) {
+function draw(canvas, tree) {
+    var ctx = canvas.getContext('2d');
+
     var radius = 20;
     var levelHeight = radius * 2 + 30;
-    var colWidth = 1440;
+    var colWidth = canvas.width;
     var startX = colWidth / 2;
     var startY = radius + 10;
     var root = tree.getRoot();
     var color = 'rgb(200,0,0)';
-
-    var canvas = document.getElementById("test_canvas");
-    var ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawChildren(ctx, root, colWidth, startX, startY, color);
@@ -45,12 +44,14 @@ function draw(tree) {
     }
 
     function drawNode(ctx, node, x, y, color) {
-        ctx.fillStyle = color;
+        ctx.fillStyle = node.getColor() === RBNode.constants.COLOR_RED
+            ? 'rgb(200,0,0)'
+            : 'rgb(0,0,0)';
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, 2 * Math.PI);
         ctx.fill();
-        ctx.font='13pt Calibri';
-        ctx.fillStyle='black';
+        ctx.font='bold 13pt Calibri';
+        ctx.fillStyle='white';
         ctx.fillText(node.getKey(), x - radius / 2, y);
     }
 

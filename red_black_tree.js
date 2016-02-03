@@ -1,16 +1,21 @@
 /**
  * Red-Black Tree
- * @param nodes
  * @returns {RBTree}
  * @constructor
  */
-function RBTree(nodes) {
+function RBTree() {
     if (!(this instanceof RBTree)) {
-        return new RBTree(nodes);
+        return new RBTree();
     }
 
     this.nodes = [];
-    this.nul = RBNode();
+    this.nul = RBNode({
+        key: null,
+        left: null,
+        right: null,
+        parent: null,
+        color: RBNode.constants.COLOR_BLACK
+    });
     this.setRoot(this.nul);
 }
 
@@ -19,7 +24,7 @@ RBTree.prototype.getRoot = function () {
 };
 
 RBTree.prototype.setRoot = function (root) {
-    root.setColor(root.constants.COLOR_BLACK);
+    root.setColor(RBNode.constants.COLOR_BLACK);
     this.root = root || this.nul;
 };
 
@@ -99,7 +104,7 @@ RBTree.prototype.getOrdered = function () {
 };
 
 RBTree.prototype.search = function (key) {
-    var seslf = this;
+    var self = this;
 
     function recursiveSearch(root, key) {
         if (root === self.nul || root.getKey() === key) {
@@ -128,7 +133,7 @@ RBTree.prototype.search = function (key) {
 };
 
 RBTree.prototype.insert = function (element) {
-    var newNode = RBNode(element);
+    var newNode = RBNode({key: element});
     var parent = this.nul;
     var root = this.getRoot();
     this.addNodeToList(newNode);
@@ -152,9 +157,9 @@ RBTree.prototype.insert = function (element) {
     newNode
         .setLeftChild(this.nul)
         .setRightChild(this.nul)
-        .setColor(newNode.constants.COLOR_RED);
+        .setColor(RBNode.constants.COLOR_RED);
 
-    this.fixup(newNode);
+    //this.fixup(newNode);
 };
 
 RBTree.prototype.fixup = function (baseNode) {
@@ -210,8 +215,9 @@ RBTree.prototype.delete = function (node) {
     }
     this.removeNodeFromList(node);
 };
+
 /**
- * RBNode
+ * Red-Black Node
  * @param key
  * @param parent
  * @param right
@@ -220,9 +226,9 @@ RBTree.prototype.delete = function (node) {
  * @returns {RBNode}
  * @constructor
  */
-function RBNode(key, parent, right, left, color) {
+function RBNode({key, parent, right, left, color}) {
     if (!(this instanceof RBNode)) {
-        return new RBNode(key, parent, right, left, color);
+        return new RBNode({key, parent, right, left, color});
     }
     this.setKey(key);
     this.setParent(parent);
@@ -231,7 +237,7 @@ function RBNode(key, parent, right, left, color) {
     this.setColor(color);
 }
 
-RBNode.prototype.constants = {
+RBNode.constants = {
     COLOR_RED: 'RED',
     COLOR_BLACK: 'BLACK'
 };
@@ -250,7 +256,7 @@ RBNode.prototype.getLeftChild = function () {
 };
 
 RBNode.prototype.setLeftChild = function (node) {
-    this.left = node || RBNode();
+    this.left = node;
     return this;
 };
 
@@ -259,7 +265,7 @@ RBNode.prototype.getRightChild = function () {
 };
 
 RBNode.prototype.setRightChild = function (node) {
-    this.right = node || RBNode();
+    this.right = node;
     return this;
 };
 
@@ -268,7 +274,7 @@ RBNode.prototype.getParent = function () {
 };
 
 RBNode.prototype.setParent = function (node) {
-    this.parent = node || RBNode();
+    this.parent = node;
     return this;
 };
 
@@ -277,9 +283,9 @@ RBNode.prototype.getColor = function () {
 };
 
 RBNode.prototype.setColor = function (color) {
-    this.color = color === this.constants.COLOR_RED
+    this.color = color === RBNode.constants.COLOR_RED
         ? color
-        : this.constants.COLOR_BLACK;
+        : RBNode.constants.COLOR_BLACK;
 
     return this;
 };

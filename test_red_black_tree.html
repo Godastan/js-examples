@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>RB-Tree</title>
-    <script src="tree.js"></script>
+    <script src="red_black_tree.js"></script>
     <script src="draw.js"></script>
     <script>
-        var tree = Tree();
+        var tree = RBTree();
         [12, 5, 18, 2, 9, 15, 19, 13, 17].forEach(function (key) {
             tree.insert(key);
         });
         window.onload = function () {
-            draw(tree);
+            var canvas = document.getElementById("test_canvas");
+            draw(canvas, tree);
         }
     </script>
     <style>
