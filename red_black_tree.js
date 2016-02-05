@@ -14,17 +14,22 @@ function RBTree() {
         left: null,
         right: null,
         parent: null,
-        color: RBNode.constants.COLOR_BLACK
+        color: RBTree.colors.BLACK
     });
     this.setRoot(this.nul);
 }
+
+RBTree.colors = {
+    BLACK: 'BLACK',
+    RED: 'RED'
+};
 
 RBTree.prototype.getRoot = function () {
     return this.root;
 };
 
 RBTree.prototype.setRoot = function (root) {
-    root.setColor(RBNode.constants.COLOR_BLACK);
+    root.setColor(RBTree.colors.BLACK);
     this.root = root || this.nul;
 };
 
@@ -157,13 +162,45 @@ RBTree.prototype.insert = function (element) {
     newNode
         .setLeftChild(this.nul)
         .setRightChild(this.nul)
-        .setColor(RBNode.constants.COLOR_RED);
+        .setColor(RBTree.colors.RED);
 
-    //this.fixup(newNode);
+    this.fixup(newNode);
 };
 
 RBTree.prototype.fixup = function (baseNode) {
-
+    var uncle;
+    while (baseNode.getParent().getColor() === RBTree.colors.RED) {
+        if (baseNode.getParent() === baseNode.getParent().getParent().getLeftChild()) {
+            uncle = baseNode.getParent().getParent().getRightChild();
+            if (uncle.getColor() === RBTree.colors.RED) {
+                baseNode.getParent().setColor(RBTree.colors.BLACK);
+                uncle.setColor(RBTree.colors.BLACK);
+                baseNode.getParent().getParent().setColor(RBTree.colors.RED);
+                baseNode = baseNode.getParent().getParent();
+            } else if (baseNode === baseNode.getParent().getRightChild()) {
+                baseNode = baseNode.getParent();
+                this.rotateLeft(baseNode);
+                baseNode.getParent().setColor(RBTree.colors.BLACK);
+                baseNode.getParent().getParent().setColor(RBTree.colors.RED);
+                this.rotateRight(baseNode.getParent().getParent());
+            }
+        } else {
+            uncle = baseNode.getParent().getParent().getLeftChild();
+            if (uncle.getColor() === RBTree.colors.RED) {
+                baseNode.getParent().setColor(RBTree.colors.BLACK);
+                uncle.setColor(RBTree.colors.BLACK);
+                baseNode.getParent().getParent().setColor(RBTree.colors.RED);
+                baseNode = baseNode.getParent().getParent();
+            } else if (baseNode === baseNode.getParent().getLeftChild()) {
+                baseNode = baseNode.getParent();
+                this.rotateRight(baseNode);
+                baseNode.getParent().setColor(RBTree.colors.BLACK);
+                baseNode.getParent().getParent().setColor(RBTree.colors.RED);
+                this.rotateLeft(baseNode.getParent().getParent());
+            }
+        }
+    }
+    this.getRoot().setColor(RBTree.colors.BLACK)
 };
 
 RBTree.prototype.getMin = function (node) {
@@ -237,11 +274,6 @@ function RBNode({key, parent, right, left, color}) {
     this.setColor(color);
 }
 
-RBNode.constants = {
-    COLOR_RED: 'RED',
-    COLOR_BLACK: 'BLACK'
-};
-
 RBNode.prototype.getKey = function () {
     return this.key;
 };
@@ -283,9 +315,6 @@ RBNode.prototype.getColor = function () {
 };
 
 RBNode.prototype.setColor = function (color) {
-    this.color = color === RBNode.constants.COLOR_RED
-        ? color
-        : RBNode.constants.COLOR_BLACK;
-
+    this.color = color || null;
     return this;
 };

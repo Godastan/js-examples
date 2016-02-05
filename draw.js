@@ -7,44 +7,43 @@ function draw(canvas, tree) {
     var startX = colWidth / 2;
     var startY = radius + 10;
     var root = tree.getRoot();
-    var color = 'rgb(200,0,0)';
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawChildren(ctx, root, colWidth, startX, startY, color);
+    drawChildren(ctx, root, colWidth, startX, startY);
 
-    function drawChildren(ctx, node, colWidth, x, y, color) {
+    function drawChildren(ctx, node, colWidth, x, y) {
 
         var nextLevelY = y + levelHeight;
+        var nextColWidth = colWidth / 2;
+        var deltaX = nextColWidth / 2;
 
-        if (node.getLeftChild() !== null) {
-            drawLine(ctx, x, y, x - colWidth / 4, nextLevelY);
+        if (node.getLeftChild() !== tree.nul) {
+            drawLine(ctx, x, y, x - deltaX, nextLevelY);
             drawChildren(
                 ctx,
                 node.getLeftChild(),
-                colWidth / 2,
-                x - colWidth / 4,
-                nextLevelY,
-                color
+                nextColWidth,
+                x - deltaX,
+                nextLevelY
             );
         }
 
-        if (node.getRightChild()) {
-            drawLine(ctx, x, y, x + colWidth / 4, nextLevelY);
+        if (node.getRightChild() !== tree.nul) {
+            drawLine(ctx, x, y, x + deltaX, nextLevelY);
             drawChildren(
                 ctx,
                 node.getRightChild(),
-                colWidth / 2,
-                x + colWidth / 4,
-                nextLevelY,
-                color
+                nextColWidth,
+                x + deltaX,
+                nextLevelY
             );
         }
 
-        drawNode(ctx, node, x, y, color);
+        drawNode(ctx, node, x, y);
     }
 
-    function drawNode(ctx, node, x, y, color) {
-        ctx.fillStyle = node.getColor() === RBNode.constants.COLOR_RED
+    function drawNode(ctx, node, x, y) {
+        ctx.fillStyle = node.getColor() === RBTree.colors.RED
             ? 'rgb(200,0,0)'
             : 'rgb(0,0,0)';
         ctx.beginPath();
