@@ -7,16 +7,17 @@
     <script src="draw.js"></script>
     <script>
         var tree = RBTree();
+        var canvas;
         var arrays = [
             [12, 5, 18, 2, 9, 15, 19, 13, 17],
             [11, 2, 14, 1, 7, 15, 5, 8],
             [41, 38, 31, 12, 19, 8]
         ];
-        arrays[0].forEach(function (key) {
+        arrays[1].forEach(function (key) {
             tree.insert(key);
         });
         window.onload = function () {
-            var canvas = document.getElementById("test_canvas");
+            canvas = document.getElementById("test_canvas");
             draw(canvas, tree);
         }
     </script>
@@ -27,6 +28,6 @@
     </style>
 </head>
 <body>
-<canvas id="test_canvas" width="1024" height="768"></canvas>
+<canvas id="test_canvas" width="1440" height="900"></canvas>
 </body>
 </html>
