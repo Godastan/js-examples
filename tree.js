@@ -56,7 +56,7 @@ Tree.prototype.search = function (key) {
 };
 
 Tree.prototype.insert = function (element) {
-    var newNode = Node(element);
+    var newNode = Node({key: element});
     var parent = null;
     var root = this.root;
     this.nodes.push(newNode);
@@ -124,12 +124,11 @@ Tree.prototype.delete = function (node) {
         min.getLeftChild().setParent(min);
     }
     this.nodes.splice(this.nodes.indexOf(node), 1);
-    
 };
 
-function Node(key, parent, right, left) {
+function Node({key, parent, right, left}) {
     if (!(this instanceof Node)) {
-        return new Node(key, parent, right, left);
+        return new Node({key, parent, right, left});
     }
     this.key = key || null;
     this.parent = parent || null;
