@@ -1,0 +1,39 @@
+.block{
+    width: 100px;
+    height: 50px;
+    padding-top: 50px;
+    background: #366e9e;
+    border: 1px solid black;
+    margin: 30px;
+    display: inline-block;
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 30px;
+}
+
+@keyframes blink {
+    0%{
+        background: #fff;
+    }
+    50%{
+        background: #808080;
+    }
+    100%{
+        background: #fff;
+    }
+}
+
+.block.loading{
+    animation: blink 1s infinite;
+}
+
+.block:hover{
+    box-shadow: 0 0 40px orange;
+}
+
+.test{
+    background: red;
+}
