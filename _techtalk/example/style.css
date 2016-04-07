@@ -1,4 +1,4 @@
-.block{
+.block {
     width: 100px;
     height: 50px;
     padding-top: 50px;
@@ -15,25 +15,25 @@
 }
 
 @keyframes blink {
-    0%{
+    0% {
         background: #fff;
     }
-    50%{
+    50% {
         background: #808080;
     }
-    100%{
+    100% {
         background: #fff;
     }
 }
 
-.block.loading{
+.block.loading {
     animation: blink 1s infinite;
 }
 
-.block:hover{
+.block:hover {
     box-shadow: 0 0 40px orange;
 }
 
-.test{
+.test {
     background: red;
 }

@@ -1,9 +1,9 @@
 let worker = new Worker('worker.js');
 let btn = document.getElementById('btn');
 
-btn.addEventListener('click', function(){
+btn.addEventListener('click', function () {
     let blocks = document.querySelectorAll('div:not(.loading)');
-    for(let i = 0; i < blocks.length; i++){
+    for (let i = 0; i < blocks.length; i++) {
         blocks[i].dispatchEvent(new Event('click'));
     }
 });
@@ -14,7 +14,7 @@ worker.addEventListener('message', function (e) {
     block.textContent = e.data.text;
 });
 
-for(let i = 0; i < 50; i++) {
+for (let i = 0; i < 50; i++) {
     let block = document.createElement('div');
     block.classList.add('block');
     block.id = `block_${i}`;
@@ -22,14 +22,15 @@ for(let i = 0; i < 50; i++) {
     document.body.appendChild(block);
 }
 
-function divClickListener(evt){
+function divClickListener(evt) {
     let block = evt.target;
     let message = {
         id: evt.target.id
     };
+    console.log('sending msg to worker: ', evt.target.id);
     worker.postMessage(message);
     block.textContent = '';
-    if(!block.classList.contains('loading')){
+    if (!block.classList.contains('loading')) {
         block.classList.add('loading');
     }
 }
