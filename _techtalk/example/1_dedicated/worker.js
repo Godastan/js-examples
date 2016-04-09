@@ -1,14 +1,15 @@
-importScripts('import.js');
-console.log(importedSquare(4));
+// importScripts('import.js');
+// console.log(importedSquare(4));
 
 var queue = [];
 
+self.postMessage({abc: 'Connected to worker'});
+
 self.addEventListener('message', function (e) {
-
     console.log(`Worker got a message: ${e.data.id}`);
-
     queue.push(e.data.id);
 });
+
 
 setInterval(function () {
     if (queue.length === 0) {

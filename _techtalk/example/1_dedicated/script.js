@@ -1,17 +1,25 @@
-let worker = new Worker('worker.js');
-let btn = document.getElementById('btn');
+var worker = new Worker('worker.js');
 
-btn.addEventListener('click', function () {
+worker.addEventListener('message', function (e) {
+    console.log('Message FROM worker: ', e.data);
+    let block = document.getElementById(e.data.id);
+    block.classList.remove('loading');
+    block.textContent = e.data.text;
+});
+
+
+var stopBtn = document.getElementById('stop_btn');
+stopBtn.addEventListener('click', function () {
+    worker.terminate();
+});
+
+
+var checkAllBtn = document.getElementById('check_all_btn');
+checkAllBtn.addEventListener('click', function () {
     let blocks = document.querySelectorAll('div:not(.loading)');
     for (let i = 0; i < blocks.length; i++) {
         blocks[i].dispatchEvent(new Event('click'));
     }
-});
-
-worker.addEventListener('message', function (e) {
-    let block = document.getElementById(e.data.id);
-    block.classList.remove('loading');
-    block.textContent = e.data.text;
 });
 
 for (let i = 0; i < 50; i++) {
