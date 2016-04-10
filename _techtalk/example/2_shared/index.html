@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Page 1</h1>
+    <p>
+        <label for="receiver">Receiver ID: </label>
+        <input type="text" id="receiver">
+    </p>
+
+    <p>
+        <label for="message">Message: </label>
+        <input type="text" id="message">
+    </p>
+
     <input type="button" id="btn" value="Send">
-    <br>
-    <span id="result"></span>
+
+    <p>
+        <span id="result"></span>
+    </p>
+
+    <input type="button" value="close" id="close_btn">
     <script src="script.js"></script>
 </body>
 </html>
